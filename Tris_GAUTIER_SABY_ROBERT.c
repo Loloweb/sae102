@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <time.h>
 
-#define MAX 500000
+#define MAX 500000 //lalalala
 
 const int RAND_M=10;
 
