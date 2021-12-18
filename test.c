@@ -1,39 +1,76 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <time.h>
 
-void afficheTab(int tab[4][4]);
+#define LIGNE 10
+#define CARAC 5
+
+void afficheTab(char tab[LIGNE][CARAC]);
+void echange (char a[CARAC], char b[CARAC]);
+void Tri_bulle_Croissant(char t[LIGNE][CARAC]);
+void initTab(char t[LIGNE][CARAC]);
 
 int main(){
-    int tab[4][4]={
-        {115, 100, 110, 0},
-        {117, 101, 111, 0},
-        {115, 102, 112, 0},
-        {33, 103, 113, 0}
-    };
+    char tab[LIGNE][CARAC];
+    srand(time(NULL));
+
+    initTab(tab);
+    afficheTab(tab);
+    Tri_bulle_Croissant(tab);
+    printf("\n");
     afficheTab(tab);
 }
 
-void afficheTab(int tab[4][4]){
-    int ligne, colonne;
-    for (colonne=0; colonne<4; colonne++) {
-        for (ligne=0; ligne<4; ligne++){
-            printf("%c", tab[colonne][ligne]);
+void afficheTab(char tab[LIGNE][CARAC]){
+    int ligne, car;
+    for (ligne=0; ligne< LIGNE; ligne++){
+        printf("**********LIGNE %d**********\n", ligne);
+        for (car=0; car<CARAC; car++){
+            printf("%c", tab[ligne][car]);
+        }
+        printf("\n");
+    }
+}
+
+void initTab(char t[LIGNE][CARAC]){
+    int ligne, car, hasard;
+    char temp;
+    for (ligne=0; ligne< LIGNE; ligne++){
+        for (car=0; car<CARAC-1; car++){
+            t[ligne][car]=(rand()%(122-97+1)+97);
+        }
+        t[ligne][car]='\0';
+    }
+}
+
+void Tri_bulle_Croissant(char t[LIGNE][CARAC])
+{
+    int i, j;
+    bool permut;
+    permut=false;
+    j=0;
+
+    for (i=0;i<LIGNE-1;i++)
+    {
+        j=0;
+        permut=false;
+        while(j<CARAC && permut==false)
+        {
+            if (t[i][j]>t[i+1][j])
+            {
+                echange(&t[i][j],&t[i+1][j]);
+                permut=true;
+            }
+            j++;
         }
     }
 }
 
-/*void Tri_bulle_Croissant(int t)
-{
-    int i, j;
-
-    for (i=0;i<MAX-1;i++)
-    {
-        for (j=0;j<MAX-i-1;j++)
-        {
-            if (t[j]>t[j+1])
-            {
-                echange(&t[j],&t[j+1]);
-            }
-        }
-    }
-}*/
+void echange (char a[CARAC], char b[CARAC]){
+    char temp[CARAC];
+    strcpy(temp,a);
+    strcpy(a,b);
+    strcpy(b,temp);
+}
