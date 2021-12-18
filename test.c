@@ -47,23 +47,25 @@ void initTab(char t[LIGNE][CARAC]){
 
 void Tri_bulle_Croissant(char t[LIGNE][CARAC])
 {
-    int i, j;
-    bool permut;
-    permut=false;
-    j=0;
+    int D, d, c;
+    bool ordre;
+    ordre=false;
+    c=0;
 
-    for (i=0;i<LIGNE-1;i++)
-    {
-        j=0;
-        permut=false;
-        while(j<CARAC && permut==false)
-        {
-            if (t[i][j]>t[i+1][j])
-            {
-                echange(&t[i][j],&t[i+1][j]);
-                permut=true;
+    for(D=0; D<LIGNE-1; D++){
+        for(d=0; d<LIGNE-1-D; d++){
+            while(ordre==false && c<CARAC){
+                if(t[d][c]>t[d+1][c]){
+                    echange(t[d], t[d+1]);
+                    ordre=true;
+                }else if(t[d][c]<t[d+1][c]){
+                    ordre=true;
+                }else{
+                    c++;
+                }
             }
-            j++;
+        c=0;
+        ordre=false;
         }
     }
 }
