@@ -150,6 +150,7 @@ void echange (char a[4], char b[4]);
 
 int main()
 {
+    clock_t beginAll=clock();
     int choix;
     t_char t;
     int n=sizeof(t)/sizeof(t[0]); //pour tri a peigne
@@ -173,13 +174,15 @@ int main()
 
     printf("Tableau non trie\n");
     afficheTab(t, false);
+
     printf("\n\t TRI EN COURS...\n\n");
+    clock_t beginSort=clock();
 
     switch (choix)
     {
         case 1 : 
             Tri_bulle_Croissant_nbCaract(t);
-             printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
+            printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
             printf("Tableau trie\n");
             afficheTab(t, true);
             printf("***************************************************************\n");
@@ -189,7 +192,7 @@ int main()
 
         case 2 :
             Tri_bulle_Decroissant_nbCaract(t);
-             printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
+            printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
             printf("Tableau trie\n");
             afficheTab(t, true);
             printf("***************************************************************\n");
@@ -199,7 +202,7 @@ int main()
 
         case 3 : 
             Tri_Shaker_Croissant_nbCarac(t);
-             printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
+            printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
             printf("Tableau trie\n");
             afficheTab(t, true);
             printf("***************************************************************\n");
@@ -209,7 +212,7 @@ int main()
 
         case 4 : 
             Tri_Shaker_Decroissant_nbCarac(t);
-             printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
+            printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
             printf("Tableau trie\n");
             afficheTab(t, true);
             printf("***************************************************************\n");
@@ -219,7 +222,7 @@ int main()
 
         case 5 :
             TriPeigneCroissant_nbcaract(t, n);
-             printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
+            printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
             printf("Tableau trie\n");
             afficheTab(t, true);
             printf("***************************************************************\n");
@@ -229,7 +232,7 @@ int main()
 
         case 6 :
             TriPeigneDecroissant_nbcaract(t, n);
-             printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
+            printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
             printf("Tableau trie\n");
             afficheTab(t, true);
             printf("***************************************************************\n");
@@ -243,7 +246,7 @@ int main()
             TriRapideCroissant_nbcarac(t, 0, MAX-1);
             printf("*****ETAPE 2*****\n");
             separation_Rapide_croissant(t);
-             printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
+            printf("\n\t PREPARATION DE L'AFFICHAGE...\n");
             printf("Tableau trie\n");
             afficheTab(t, true);
             printf("***************************************************************\n");
@@ -265,6 +268,11 @@ int main()
             printf("***************************************************************\n");
             break;
     }
+    clock_t endSort=clock();
+    clock_t endAll=clock();
+    double timeSort=(endSort-beginSort)*1.0/CLOCKS_PER_SEC;
+    double timeAll=(endAll-beginAll)*1.0/CLOCKS_PER_SEC;
+    printf("Temps CPU du tri : %f secondes\n");
     printf("\n");
 
     return 0;
