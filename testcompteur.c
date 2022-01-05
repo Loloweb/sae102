@@ -275,7 +275,9 @@ int main()
     clock_t endAll=clock();
     double timeSort=(endSort-beginSort)*1.0/CLOCKS_PER_SEC;
     double timeAll=(endAll-beginAll)*1.0/CLOCKS_PER_SEC;
-    printf("Temps CPU du tri : %f secondes\n");
+    printf("Temps CPU du tri : %f secondes\n", timeAll);
+    printf("Nombre de permutations : %d\n", compPerm);
+    printf("Nombre de Comparaisons : %d", compComp);
     printf("\n");
 
     return 0;
