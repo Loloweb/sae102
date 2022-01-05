@@ -7,8 +7,8 @@
 
 const int RAND_M=10;
 
-int compPerm = 0;
-int compComp = 0;
+long int compPerm = 0;
+long int compComp = 0;
 
 //type qui défini les tableau 1D à MAX cases
 typedef int t_int[MAX];
@@ -184,8 +184,8 @@ int main()
     double timeSort=(endSort-beginSort)*1.0/CLOCKS_PER_SEC;
     double timeAll=(endAll-beginAll)*1.0/CLOCKS_PER_SEC;
     printf("Temps CPU du tri : %f secondes\n", timeAll);
-    printf("Nombre de permutations : %d\n", compPerm);
-    printf("Nombre de Comparaisons : %d", compComp);
+    printf("Nombre de permutations : %ld\n", compPerm);
+    printf("Nombre de Comparaisons : %ld", compComp);
 
     return 0;
 }
