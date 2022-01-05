@@ -351,7 +351,7 @@ void Tri_bulle_Croissant_nbCaract(t_char t)
                         ordre=true;
                     }else if(strlen(t[d]) <= strlen(t[d+1])){
                         ordre=true;
-                    }
+                    }compComp++;
             }
         c=0;
         ordre=false;
@@ -377,7 +377,7 @@ void Tri_bulle_Croissant_alpha(t_char t)
                         ordre=true;
                     }else{
                         c++;
-                    }
+                    }compComp++;
                 }
             }
             c=0;
@@ -403,7 +403,7 @@ void Tri_bulle_Decroissant_nbCaract(t_char t)
                         ordre=true;
                     }else if(strlen(t[d]) >= strlen(t[d+1])){
                         ordre=true;
-                    }
+                    }compComp++;
             }
         c=0;
         ordre=false;
@@ -429,7 +429,7 @@ void Tri_bulle_Decroissant_alpha(t_char t)
                         ordre=true;
                     }else{
                         c++;
-                    }
+                    }compComp++;
                 }
             }
             c=0;
@@ -452,13 +452,13 @@ void Tri_Shaker_Croissant_nbCarac(t_char t)
         for(aller=deb; aller<fin; aller++){
             if(strlen(t[aller])>strlen(t[aller+1])){
                 echange(t[aller], t[aller+1]);
-            }
+            }compComp++;
         }
 
         for(retour=fin; retour>deb; retour--){
             if(strlen(t[retour])<strlen(t[retour-1])){
                 echange(t[retour], t[retour-1]);
-            }
+            }compComp++;
         }
         fin-=1;
         deb+=1;
@@ -492,7 +492,7 @@ void Tri_Shaker_Croissant_alpha(t_char t)
                         caract++;
                     }else{
                         permut=true;
-                    }
+                    }compComp++;
                 }
             }
         }
@@ -510,7 +510,7 @@ void Tri_Shaker_Croissant_alpha(t_char t)
                         caract++;
                     }else{
                         permut=true;
-                    }
+                    }compComp++;
                 }
             }
         }
@@ -533,14 +533,14 @@ void Tri_Shaker_Decroissant_nbCarac(t_char t)
             if(strlen(t[aller])<strlen(t[aller+1])){
                 echange(t[aller], t[aller+1]);
             }else if(strlen(t[aller]) >= strlen(t[aller+1])){
-            }
+            }compComp++;
         }
 
         for(retour=fin; retour>deb; retour--){
             if(strlen(t[retour])>strlen(t[retour-1])){
                 echange(t[retour], t[retour-1]);
             }else if(strlen(t[retour]) <= strlen(t[retour-1])){
-            }
+            }compComp++;
         }
         fin-=1;
         deb+=1;
@@ -574,7 +574,7 @@ void Tri_Shaker_Decroissant_alpha(t_char t)
                         caract++;
                     }else{
                         permut=true;
-                    }
+                    }compComp++;
                 }
             }
         }
@@ -592,7 +592,7 @@ void Tri_Shaker_Decroissant_alpha(t_char t)
                         caract++;
                     }else{
                         permut=true;
-                    }
+                    }compComp++;
                 }
             }
         }
