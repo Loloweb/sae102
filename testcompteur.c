@@ -610,7 +610,7 @@ void Division_tableau_Croissant_nbcarac(t_char tab, int deb,int fin, int *pivot)
         if(strlen(tab[i])<strlen(tab[fin])){
             echange(tab[i],tab[j]);
             j+=1;
-        }
+        }compComp++;
     }
     echange(tab[j],tab[fin]);
     *pivot=j;
@@ -688,7 +688,7 @@ void Division_tableau_Decroissant_nbcarac(t_char tab, int deb,int fin, int *pivo
         if(strlen(tab[i])>strlen(tab[fin])){
             echange(tab[i],tab[j]);
             j+=1;
-        }
+        }compComp++;
     }
     echange(tab[j],tab[fin]);
     *pivot=j;
@@ -834,7 +834,7 @@ void TriPeigneCroissant_alpha(t_char tab, int inter, int deb, int fin){
                         ordre=true;
                     }else if(tab[i][c]==tab[i+inter][c]){
                         c++;
-                    }
+                    }compComp++;
                 }
             }
         }
@@ -900,7 +900,7 @@ void TriPeigneDecroissant_alpha(t_char tab, int inter, int deb, int fin){
                         ordre=true;
                     }else if(tab[i][c]==tab[i+inter][c]){
                         c++;
-                    }
+                    }compComp++;
                 }
             }
         }
