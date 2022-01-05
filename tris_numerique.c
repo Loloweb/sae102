@@ -273,9 +273,7 @@ void Tri_bulle_Croissant(t_int t)
             if (t[j]>t[j+1])
             {
                 echange(&t[j],&t[j+1]);
-
-                compComp++;
-            }
+            }compComp++;
         }
     }
 }
@@ -291,9 +289,7 @@ void Tri_bulle_Decroissant(t_int t)
             if (t[j]<t[j+1])
             {
                 echange(&t[j],&t[j+1]);
-
-                compComp++;
-            }
+            }compComp++;
         }
     }
 }
@@ -320,9 +316,7 @@ void Tri_Shaker_Croissant(t_int t)
             {
                 echange(&t[i],&t[i+1]);
                 tri=true;
-
-                compComp++;
-            }
+            }compComp++;
         }
 
         for (i=MAX-2;i>0;i--)
@@ -331,9 +325,7 @@ void Tri_Shaker_Croissant(t_int t)
             {
                 echange(&t[i],&t[i+1]);
                 tri=true;
-
-                compComp++;
-            }
+            }compComp++;
 
         }
     }
@@ -357,9 +349,7 @@ void Tri_Shaker_Decroissant(t_int t)
             {
                 echange(&t[i],&t[i+1]);
                 tri = true;
-
-                compComp++;
-            } 
+            }compComp++;
         }
 
         for (i=MAX-2;i>0;i--)
@@ -368,9 +358,7 @@ void Tri_Shaker_Decroissant(t_int t)
             {
                 echange(&t[i],&t[i+1]);
                 tri = true;
-
-                compComp++;
-            }
+            }compComp++;
 
         }
     }
@@ -388,9 +376,7 @@ void Division_tableau_Croissant(t_int tab, int deb,int fin, int *pivot){
         if(tab[i]<tab[fin]){
             echange(&tab[i],&tab[j]);
             j+=1;
-
-            compComp++;
-        }
+        }compComp++;
     }
     echange(&tab[j],&tab[fin]);
     *pivot=j;
@@ -412,9 +398,7 @@ void Division_tableau_Decroissant(t_int tab, int deb,int fin, int *pivot){
         if(tab[i]>tab[fin]){
             echange(&tab[i],&tab[j]);
             j+=1;
-
-            compComp++;
-        }
+        }compComp++;
     }
     echange(&tab[j],&tab[fin]);
     *pivot=j;
@@ -458,9 +442,7 @@ void TriPeigneCroissant(t_int tab, int inter) {
             if (tab[i]>tab[i+inter]) {
                 echangeur_TriPeigne(tab, inter, i);
                 swap=true;
-
-                compComp++;
-            }
+            }compComp++;
         }
     }
 }
@@ -474,9 +456,7 @@ void TriPeigneDecroissant(t_int tab, int inter) {
             if (tab[i]<tab[i+inter]) {
                 echangeur_TriPeigne(tab, inter, i);
                 swap=true;
-
-                compComp++;
-            }
+            }compComp++;
         }
     }
 }
