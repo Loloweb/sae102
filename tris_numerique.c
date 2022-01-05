@@ -7,6 +7,9 @@
 
 const int RAND_M=10;
 
+int compPerm = 0;
+int compComp = 0;
+
 //type qui défini les tableau 1D à MAX cases
 typedef int t_int[MAX];
 typedef int t_unic[(10*RAND_M)];
@@ -108,6 +111,7 @@ void afficheNonTrie (t_int t);
 
 int main()
 {
+    clock_t beginAll=clock();
     int choix;
     t_int t;
     int n=sizeof(t)/sizeof(t[0]); //pour tri a peigne
@@ -134,6 +138,7 @@ int main()
     printf("Tableau non trié\n");
     afficheNonTrie (t);
     printf("\n\t TRI EN COURS...\n");
+    clock_t beginSort=clock();
 
     switch (choix)
     {
@@ -174,6 +179,14 @@ int main()
     afficheTabTrieUnic (t, tabUnic);
     printf("\n");
 
+    clock_t endSort=clock();
+    clock_t endAll=clock();
+    double timeSort=(endSort-beginSort)*1.0/CLOCKS_PER_SEC;
+    double timeAll=(endAll-beginAll)*1.0/CLOCKS_PER_SEC;
+    printf("Temps CPU du tri : %f secondes\n", timeAll);
+    printf("Nombre de permutations : %d\n", compPerm);
+    printf("Nombre de Comparaisons : %d", compComp);
+
     return 0;
 }
 
@@ -189,6 +202,8 @@ void echange (int *a, int *b){
     temp=*a;
     *a=*b;
     *b=temp;
+
+    compPerm++;
 }
 
 void afficheNonTrie (t_int t){
@@ -258,6 +273,8 @@ void Tri_bulle_Croissant(t_int t)
             if (t[j]>t[j+1])
             {
                 echange(&t[j],&t[j+1]);
+
+                compComp++;
             }
         }
     }
@@ -274,6 +291,8 @@ void Tri_bulle_Decroissant(t_int t)
             if (t[j]<t[j+1])
             {
                 echange(&t[j],&t[j+1]);
+
+                compComp++;
             }
         }
     }
@@ -301,6 +320,8 @@ void Tri_Shaker_Croissant(t_int t)
             {
                 echange(&t[i],&t[i+1]);
                 tri=true;
+
+                compComp++;
             }
         }
 
@@ -310,6 +331,8 @@ void Tri_Shaker_Croissant(t_int t)
             {
                 echange(&t[i],&t[i+1]);
                 tri=true;
+
+                compComp++;
             }
 
         }
@@ -334,6 +357,8 @@ void Tri_Shaker_Decroissant(t_int t)
             {
                 echange(&t[i],&t[i+1]);
                 tri = true;
+
+                compComp++;
             } 
         }
 
@@ -343,6 +368,8 @@ void Tri_Shaker_Decroissant(t_int t)
             {
                 echange(&t[i],&t[i+1]);
                 tri = true;
+
+                compComp++;
             }
 
         }
@@ -361,6 +388,8 @@ void Division_tableau_Croissant(t_int tab, int deb,int fin, int *pivot){
         if(tab[i]<tab[fin]){
             echange(&tab[i],&tab[j]);
             j+=1;
+
+            compComp++;
         }
     }
     echange(&tab[j],&tab[fin]);
@@ -383,6 +412,8 @@ void Division_tableau_Decroissant(t_int tab, int deb,int fin, int *pivot){
         if(tab[i]>tab[fin]){
             echange(&tab[i],&tab[j]);
             j+=1;
+
+            compComp++;
         }
     }
     echange(&tab[j],&tab[fin]);
@@ -414,6 +445,8 @@ void echangeur_TriPeigne(t_int tab, int inter, int i) {
     int temp=tab[i];
     tab[i]=tab[i+inter];
     tab[i+inter]=temp;
+
+    compPerm++;
 }
 
 void TriPeigneCroissant(t_int tab, int inter) {
@@ -425,6 +458,8 @@ void TriPeigneCroissant(t_int tab, int inter) {
             if (tab[i]>tab[i+inter]) {
                 echangeur_TriPeigne(tab, inter, i);
                 swap=true;
+
+                compComp++;
             }
         }
     }
@@ -439,6 +474,8 @@ void TriPeigneDecroissant(t_int tab, int inter) {
             if (tab[i]<tab[i+inter]) {
                 echangeur_TriPeigne(tab, inter, i);
                 swap=true;
+
+                compComp++;
             }
         }
     }
