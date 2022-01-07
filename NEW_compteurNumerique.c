@@ -435,12 +435,13 @@ void TriRapideDecroissant(t_int tab,int deb, int fin){
         TriRapideDecroissant(tab,deb,(pivot-1));
         TriRapideDecroissant(tab,(pivot+1),fin);
     }compteur_comparaison++;
+}
 
 /**************************************************************
 ******* TRI PEIGNE CROISSANT DECROISSANT***********************
 ***************************************************************/
 
-int div3_TriPeigne(int inter) {
+int div3_TriPeigne(int inter){
     inter/=3;
     if (inter<1) {
         inter=1;
