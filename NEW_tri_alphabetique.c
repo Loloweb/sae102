@@ -444,20 +444,25 @@ void Tri_bulle_Decroissant_alpha(t_char t)
 void Tri_Shaker_Croissant_nbCarac(t_char t)
 {
     int aller, retour, deb, fin;
+    bool ordre;
+    ordre= true;
 
     deb=0;
     fin=MAX-1;
 
-    while(fin-deb>0){
+    while(fin-deb>0 && ordre==true){
+        ordre=false;
         for(aller=deb; aller<fin; aller++){
             if(strlen(t[aller])>strlen(t[aller+1])){
                 echange(t[aller], t[aller+1]);
+                ordre=true;
             }compteur_comparaison++;
         }
 
         for(retour=fin; retour>deb; retour--){
             if(strlen(t[retour])<strlen(t[retour-1])){
                 echange(t[retour], t[retour-1]);
+                ordre=true;
             }compteur_comparaison++;
         }
         fin-=1;
@@ -524,14 +529,18 @@ void Tri_Shaker_Croissant_alpha(t_char t)
 void Tri_Shaker_Decroissant_nbCarac(t_char t)
 {
     int aller, retour, deb, fin;
+    bool ordre;
 
+    ordre=true;
     deb=0;
     fin=MAX-1;
 
-    while(fin-deb>0){
+    while(fin-deb>0 && ordre==true){
+        ordre=false;
         for(aller=deb; aller<fin; aller++){
             if(strlen(t[aller])<strlen(t[aller+1])){
                 echange(t[aller], t[aller+1]);
+                ordre=true;
             }else if(strlen(t[aller]) >= strlen(t[aller+1])){
             }compteur_comparaison++;
         }
@@ -539,6 +548,7 @@ void Tri_Shaker_Decroissant_nbCarac(t_char t)
         for(retour=fin; retour>deb; retour--){
             if(strlen(t[retour])>strlen(t[retour-1])){
                 echange(t[retour], t[retour-1]);
+                ordre=true;
             }else if(strlen(t[retour]) <= strlen(t[retour-1])){
             }compteur_comparaison++;
         }
@@ -546,6 +556,7 @@ void Tri_Shaker_Decroissant_nbCarac(t_char t)
         deb+=1;
     }
     Tri_Shaker_Decroissant_alpha(t);
+
 }
 
 void Tri_Shaker_Decroissant_alpha(t_char t)
@@ -574,12 +585,14 @@ void Tri_Shaker_Decroissant_alpha(t_char t)
                         caract++;
                     }else{
                         permut=true;
+                        deb+=1;
                     }compteur_comparaison++;
                 }
             }compteur_comparaison++;
+            printf("aller: %d\t", aller);
         }
 
-        for(retour=fin; retour<deb; retour--){
+        for(retour=fin; retour>deb; retour--){
             permut=false;
             caract=0;
             if(strlen(t[retour])==strlen(t[retour-1])){
@@ -592,11 +605,14 @@ void Tri_Shaker_Decroissant_alpha(t_char t)
                         caract++;
                     }else{
                         permut=true;
+                        fin-=1;
                     }compteur_comparaison++;
                 }
             }compteur_comparaison++;
+            printf("retour= %d\n", retour);
         }
     }
+
 }
 
 /**************************************************************
