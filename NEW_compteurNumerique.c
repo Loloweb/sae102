@@ -4,8 +4,7 @@
 #include <time.h>
 
 #define MAX 5000
-
-const int RAND_M=10;
+#define RAND_M 10
 
 long int compteur_permutation = 0;
 long int compteur_comparaison = 0;
