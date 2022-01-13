@@ -43,6 +43,7 @@ void triClasse(t_tabCovid tab, int nombreCas);
 void echange (t_covid *a, t_covid *b);
 void triDate(t_tabCovid tab, int nombreCas);
 void Debutannee35(t_tabCovid tab, int nombreCas);
+int population22_recherche (t_tabCovid tab, int nbCas);
 
 
 int main (){
@@ -52,10 +53,12 @@ int main (){
     cas=population22_sequentiel(tab,nombreCas);
     printf("Nombre d'habitant dans les Cotes d'armor: %d\n", cas);
 
+    cas=population22_recherche (tab, nombreCas);
+    printf("Nombre d'habitant dans les Cotes d'armor: %d\n", cas);
+
     triDepartement(tab, nombreCas);
     triDate(tab,nombreCas);
     Debutannee35(tab,nombreCas);
-
 }
 
 
@@ -103,15 +106,18 @@ int population22_sequentiel(t_tabCovid tab, int nbCas){
 
     clock_t fin=clock();
     double tempsCPU=(fin-debut)*1.0/CLOCKS_PER_SEC;
+    printf("*****SOLUTION 1: RECHERCHE**********\n");
     printf("Temps CPU: %.3f\n", tempsCPU);
     printf("nombre de permutations : %ld\n", compteur_permutation);
     printf("nombre de comparaisons : %ld\n", compteur_comparaison);
+    printf("\n");
+
     return habitant22;
 }
 
 int population22_recherche (t_tabCovid tab, int nbCas){
     int habitant22, boucle;
-    clock_t debut=clock();
+    clock_t debut_avec_tri=clock();
 
     bool trouv;
     trouv=false;
@@ -121,13 +127,31 @@ int population22_recherche (t_tabCovid tab, int nbCas){
     compteur_permutation=0;
 
     triDepartement(tab,nbCas);
-    
 
-    clock_t fin=clock();
-    double tempsCPU=(fin-debut)*1.0/CLOCKS_PER_SEC;
-    printf("Temps CPU: %.3f\n", tempsCPU);
+    clock_t debut_sans_tri=clock();
+
+    while(boucle<MAX && !trouv){
+        if(tab[boucle].c_classe==0 && tab[boucle].c_dep==22){
+            habitant22=tab[boucle].c_pop;
+            trouv=true;
+        }
+        boucle+=1;
+        compteur_comparaison+=1;
+    }
+
+    clock_t fin_avec_tri=clock();
+    clock_t fin_sans_tri=clock();
+
+    double tempsCPU_avec_tri=(fin_avec_tri-debut_avec_tri)*1.0/CLOCKS_PER_SEC;
+    double tempsCPU_sans_tri=(fin_sans_tri-debut_sans_tri)*1.0/CLOCKS_PER_SEC;
+
+    printf("*******SOLUTION 2: TRI ET RECHERCHE**********\n");
+    printf("Temps CPU avec tri: %.3f\n", tempsCPU_avec_tri);
+    printf("Temps CPU sans tri: %.3f\n", tempsCPU_sans_tri);
+
     printf("nombre de permutations : %ld\n", compteur_permutation);
     printf("nombre de comparaisons : %ld\n", compteur_comparaison);
+    printf("\n");
     return habitant22;
 }
 
@@ -159,7 +183,6 @@ void Debutannee35(t_tabCovid tab, int nombreCas){
 }
 
 void triClasse(t_tabCovid tab, int nombreCas) {
-    t_preparationAffichage Affichage;
     TriRapideCroissant_classe(tab, 0, nombreCas);
 }
 
