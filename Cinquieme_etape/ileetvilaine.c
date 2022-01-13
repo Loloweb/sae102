@@ -2,8 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <time.h>
 
 #define MAX 20000
+
+long int compteur_permutation = 0;
+long int compteur_comparaison = 0;
 
 typedef char t_chaine10[11];
 typedef int t_int[MAX];
@@ -19,13 +23,13 @@ typedef struct{
 
 typedef struct{
     int c_classe;
-    int c_pop;
+    int c_poplo;
 }t_preparationAffichage;
 
 typedef t_covid t_tabCovid[MAX];
 
 void LireFichier(t_tabCovid tab, int* nombreCas);
-int population22(t_tabCovid tab, int nbCas);
+int population22_sequentiel(t_tabCovid tab, int nbCas);
 void triDepartement(t_tabCovid tab, int nombreCas);
 void Division_tableau_Croissant_date(t_tabCovid tab, int deb,int fin, int *pivot);
 void TriRapideCroissant_date(t_tabCovid tab,int deb, int fin);
@@ -45,8 +49,9 @@ int main (){
     t_tabCovid tab;
     int nombreCas, cas;
     LireFichier(tab, &nombreCas);
-    cas=population22(tab,nombreCas);
-    printf("%d", cas);
+    cas=population22_sequentiel(tab,nombreCas);
+    printf("Nombre d'habitant dans les Cotes d'armor: %d\n", cas);
+
     triDepartement(tab, nombreCas);
     triDate(tab,nombreCas);
     Debutannee35(tab,nombreCas);
@@ -78,19 +83,54 @@ void LireFichier(t_tabCovid tab, int* nombreCas){
 
 int population22_sequentiel(t_tabCovid tab, int nbCas){
     int habitant22, boucle;
+    clock_t debut=clock();
+
     bool trouv;
     trouv=false;
     boucle=0;
     habitant22=0;
+    compteur_comparaison=0;
+    compteur_permutation=0;
+
     while(boucle<MAX && !trouv){
         if(tab[boucle].c_classe==0 && tab[boucle].c_dep==22){
             habitant22=tab[boucle].c_pop;
             trouv=true;
         }
         boucle+=1;
+        compteur_comparaison+=1;
     }
+
+    clock_t fin=clock();
+    double tempsCPU=(fin-debut)*1.0/CLOCKS_PER_SEC;
+    printf("Temps CPU: %.3f\n", tempsCPU);
+    printf("nombre de permutations : %ld\n", compteur_permutation);
+    printf("nombre de comparaisons : %ld\n", compteur_comparaison);
     return habitant22;
 }
+
+int population22_recherche (t_tabCovid tab, int nbCas){
+    int habitant22, boucle;
+    clock_t debut=clock();
+
+    bool trouv;
+    trouv=false;
+    boucle=0;
+    habitant22=0;
+    compteur_comparaison=0;
+    compteur_permutation=0;
+
+    triDepartement(tab,nbCas);
+    
+
+    clock_t fin=clock();
+    double tempsCPU=(fin-debut)*1.0/CLOCKS_PER_SEC;
+    printf("Temps CPU: %.3f\n", tempsCPU);
+    printf("nombre de permutations : %ld\n", compteur_permutation);
+    printf("nombre de comparaisons : %ld\n", compteur_comparaison);
+    return habitant22;
+}
+
 
 void triDepartement(t_tabCovid tab, int nombreCas) {
     TriRapideCroissant_dep(tab, 0, nombreCas); 
@@ -118,7 +158,6 @@ void Debutannee35(t_tabCovid tab, int nombreCas){
     printf("TOTAL= %d\n", total);
 }
 
-
 void triClasse(t_tabCovid tab, int nombreCas) {
     t_preparationAffichage Affichage;
     TriRapideCroissant_classe(tab, 0, nombreCas);
@@ -137,6 +176,7 @@ void Division_tableau_Croissant_date(t_tabCovid tab, int deb,int fin, int *pivot
             echange(&tab[i],&tab[j]);
             j+=1;
         }
+        compteur_comparaison+=1;
     }
     echange(&tab[j],&tab[fin]);
     *pivot=j;
@@ -149,6 +189,7 @@ void TriRapideCroissant_date(t_tabCovid tab,int deb, int fin){
         TriRapideCroissant_date(tab,deb,(pivot-1));
         TriRapideCroissant_date(tab,(pivot+1),fin);
     }
+    compteur_comparaison+=1;
 }
 
 void Division_tableau_Croissant_classe(t_tabCovid tab, int deb,int fin, int *pivot){
@@ -159,6 +200,7 @@ void Division_tableau_Croissant_classe(t_tabCovid tab, int deb,int fin, int *piv
             echange(&tab[i],&tab[j]);
             j+=1;
         }
+        compteur_comparaison+=1;
     }
     echange(&tab[j],&tab[fin]);
     *pivot=j;
@@ -171,6 +213,7 @@ void TriRapideCroissant_classe(t_tabCovid tab,int deb, int fin){
         TriRapideCroissant_classe(tab,deb,(pivot-1));
         TriRapideCroissant_classe(tab,(pivot+1),fin);
     }
+    compteur_comparaison+=1;
 }
 
 
@@ -182,6 +225,7 @@ void Division_tableau_Croissant_dep(t_tabCovid tab, int deb,int fin, int *pivot)
             echange(&tab[i],&tab[j]);
             j+=1;
         }
+        compteur_comparaison+=1;
     }
     echange(&tab[j],&tab[fin]);
     *pivot=j;
@@ -194,6 +238,7 @@ void TriRapideCroissant_dep(t_tabCovid tab,int deb, int fin){
         TriRapideCroissant_dep(tab,deb,(pivot-1));
         TriRapideCroissant_dep(tab,(pivot+1),fin);
     }
+    compteur_comparaison+=1;
 }
 
 
@@ -202,4 +247,5 @@ void echange (t_covid *a, t_covid *b){
     temp=*a;
     *a=*b;
     *b=temp;
+    compteur_permutation+=1;
 }
