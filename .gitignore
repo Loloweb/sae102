@@ -1,4 +1,13 @@
+# VSC generated files #
 .vscode/launch.json
 .vscode/tasks.json
 Cinquieme_etape/.vscode/launch.json
 Cinquieme_etape/.vscode/tasks.json
+# OS generated files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
